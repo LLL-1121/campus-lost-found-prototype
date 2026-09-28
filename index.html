@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>校园失物招领原型</title>
+  <link rel="stylesheet" href="style.css">
+  <style>.capture .app-shell{margin-left:0}.capture .bottom-nav{left:0;transform:none}</style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-page="home" aria-label="返回首页"><span>校园失物招领</span></button>
+      <button class="avatar" data-page="mine" aria-label="我的发布">林</button>
+    </header>
+
+    <main>
+      <section class="page active" id="home" aria-labelledby="home-title">
+        <div class="hero">
+          <h1 id="home-title">失物招领</h1>
+          <p>查看校园内最新的寻物和招领信息</p>
+          <button class="search-entry" data-page="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+            搜索校园卡、钥匙、耳机……
+          </button>
+        </div>
+
+        <div class="quick-actions" aria-label="快捷操作">
+          <button data-publish-type="lost"><span class="action-icon coral"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4M11 8v6M8 11h6"/></svg></span><strong>我丢东西了</strong><small>发布寻物信息</small></button>
+          <button data-publish-type="found"><span class="action-icon teal"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14"/><circle cx="12" cy="12" r="9"/></svg></span><strong>我捡到物品</strong><small>发布招领信息</small></button>
+        </div>
+
+        <div class="section-head"><div><h2>最新信息</h2></div><div class="segmented"><button class="active" data-filter="all">全部</button><button data-filter="lost">寻物</button><button data-filter="found">招领</button></div></div>
+        <div class="feed" id="feed"></div>
+      </section>
+
+      <section class="page" id="search" aria-labelledby="search-title">
+        <div class="page-title"><button class="back" data-page="home" aria-label="返回"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><div><h1 id="search-title">搜索物品</h1><p>用关键词缩小寻找范围</p></div></div>
+        <label class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg><input id="search-input" placeholder="输入物品名称或地点" autocomplete="off"><button id="clear-search" aria-label="清空搜索">×</button></label>
+        <div class="chips" aria-label="热门关键词"><button>校园卡</button><button>钥匙</button><button>耳机</button><button>雨伞</button><button>图书馆</button></div>
+        <div class="search-meta" id="search-meta">推荐信息</div>
+        <div class="feed" id="search-results"></div>
+      </section>
+
+      <section class="page" id="publish" aria-labelledby="publish-title">
+        <div class="page-title"><button class="back" data-page="home" aria-label="返回"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><div><h1 id="publish-title">发布信息</h1><p>准确的信息更容易被找到</p></div></div>
+        <form id="publish-form">
+          <fieldset><legend>信息类型</legend><div class="type-choice"><label><input type="radio" name="type" value="lost" checked><span>寻物</span></label><label><input type="radio" name="type" value="found"><span>招领</span></label></div></fieldset>
+          <label>物品名称<input name="title" required placeholder="例如：蓝色校园卡套"></label>
+          <div class="form-row"><label>时间<input name="date" type="date" required></label><label>地点<select name="place"><option>教学楼</option><option>图书馆</option><option>食堂</option><option>宿舍区</option><option>运动场</option><option>其他</option></select></label></div>
+          <label>物品特征<textarea name="description" required maxlength="120" placeholder="颜色、品牌、明显特征等，避免填写隐私信息"></textarea><small>建议保留一项关键特征，用于核对认领人身份。</small></label>
+          <label>联系方式<input name="contact" required placeholder="QQ / 微信 / 手机号"></label>
+          <button class="primary" type="submit">确认发布</button>
+        </form>
+      </section>
+
+      <section class="page" id="detail" aria-labelledby="detail-title">
+        <div class="detail-cover" id="detail-cover"><button class="back floating" data-page="home" aria-label="返回"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><span id="detail-symbol"></span></div>
+        <article class="detail-card"><div class="tag-row"><span class="status-tag" id="detail-type"></span><span class="time" id="detail-time"></span></div><h1 id="detail-title"></h1><p class="detail-description" id="detail-description"></p><dl><div><dt>发现 / 遗失地点</dt><dd id="detail-place"></dd></div><div><dt>发布时间</dt><dd id="detail-date"></dd></div><div><dt>当前状态</dt><dd id="detail-status">寻找中</dd></div></dl><div class="safety"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6z"/><path d="m9 12 2 2 4-5"/></svg><p><strong>安全提示</strong>认领时请核对物品特征，并选择校园公共区域交接。</p></div><button class="primary" id="contact-btn">联系发布者</button></article>
+      </section>
+
+      <section class="page" id="success" aria-labelledby="success-title"><div class="success-wrap"><div class="success-icon"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 7"/></svg></div><h1 id="success-title">发布成功</h1><p>信息已经加入校园广场。找到物品后，记得在“我的发布”中更新状态。</p><button class="primary" data-page="home">返回首页</button><button class="secondary" data-page="mine">查看我的发布</button></div></section>
+
+      <section class="page" id="mine" aria-labelledby="mine-title"><div class="page-title"><button class="back" data-page="home" aria-label="返回"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><div><h1 id="mine-title">我的发布</h1><p>管理信息与更新状态</p></div></div><div class="profile"><div class="avatar large">林</div><div><strong>林彦羽</strong><span>052404129</span></div></div><div class="feed" id="mine-feed"></div></section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="主要导航"><button class="active" data-page="home"><svg viewBox="0 0 24 24"><path d="m4 10 8-6 8 6v9H4z"/><path d="M9 19v-6h6v6"/></svg><span>首页</span></button><button data-page="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg><span>搜索</span></button><button class="publish-fab" data-page="publish" aria-label="发布信息"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button><button data-page="mine"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 21c.7-4 3-6 7-6s6.3 2 7 6"/></svg><span>我的</span></button></nav>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
