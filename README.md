@@ -21,6 +21,16 @@ python -m http.server 8080
 
 本原型仅使用 HTML、CSS 与 JavaScript，无第三方依赖，也不收集或发送真实联系方式。
 
+新增信息与联系方式仅保留在本次页面会话；刷新会恢复示例数据。请使用虚构联系方式演示。本人信息详情可切换“已找到 / 已归还”和未完成状态，示例他人信息没有管理按钮。当前没有后端、持久化或真实登录权限。
+
+## 本轮测试与报告
+
+- [完整项目报告](项目报告.md)：真实 AI 协作记录、问题修复、11 项回归、截图与 PSP 记录边界。
+- [自动化结果](tests/results.json)：Microsoft Edge 浏览器测试全部通过。
+- 测试脚本 `tests/regression.cjs` 使用 Node.js、Playwright 与已安装的 Edge，执行 `node tests/regression.cjs`。可用 `npm install --no-save --package-lock=false playwright` 安装开发测试工具；生产页面仍无需依赖。
+
+![首页截图](images/home.png)
+
 ## 协作空间
 
 当前由林彦羽（052404129）独立完成，尚无实际参与的第二名开发者。仓库已预留后续协作流程，任务、分支和自查记录不代表已经完成双人结对。
